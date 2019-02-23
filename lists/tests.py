@@ -33,31 +33,18 @@ class HomePageTest(TestCase):
         response = self.client.get('/')
         self.assertTemplateUsed(response, 'home.html')
 
-    def test_only_saves_items_when_necessary(self):
-        self.client.get('/')
-        self.assertEqual(Item.objects.count(), 0)
 
-    # тестирование создание модели при POST запросе
+class NewListTest(TestCase):
+
     def test_can_save_a_POST_request(self):
-        response = self.client.post('/', data={'item_text': 'A new list item'})
-
+        self.client.post('/lists/new', data={'item_text': 'A new list item'})
         self.assertEqual(Item.objects.count(), 1)
         new_item = Item.objects.first()
         self.assertEqual(new_item.text, 'A new list item')
 
-    # тестирование редиректа на главную страницу
     def test_redirects_after_POST(self):
-        response = self.client.post('/', data={'item_text': 'A new list item'})
-        self.assertEqual(response.status_code, 302)
-        self.assertEqual(response['location'], '/lists/the-only-list-in-the-world/')
-
-    # тестирование отображение всех пунктов списка
-    # def test_displays_all_list_items(self):
-    #     Item.objects.create(text='itemey 1')
-    #     Item.objects.create(text='itemey 2')
-    #     response = self.client.get('/')
-    #     self.assertIn('itemey 1', response.content.decode())
-    #     self.assertIn('itemey 2', response.content.decode())
+        response = self.client.post('/lists/new', data={'item_text': 'A new list item'})
+        self.assertRedirects(response, '/lists/the-only-list-in-the-world/')
 
 
 # создание модели
