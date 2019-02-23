@@ -5,7 +5,7 @@ from selenium.webdriver.common.keys import Keys
 import time
 import unittest
 
-MAX_WAIT = 10
+MAX_WAIT = 3
 #class NewVisitorTest(unittest.TestCase):  #данные будут создаваться в реальной базе
 class NewVisitorsTest(LiveServerTestCase): #данные будут создаваться в тестовой базе
     def setUp(self):
