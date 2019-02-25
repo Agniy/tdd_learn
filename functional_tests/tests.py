@@ -1,4 +1,5 @@
 from django.test import LiveServerTestCase
+from django.contrib.staticfiles.testing import StaticLiveServerTestCase
 from selenium import webdriver
 from selenium.common.exceptions import WebDriverException
 from selenium.webdriver.common.keys import Keys
@@ -7,7 +8,10 @@ import unittest
 
 MAX_WAIT = 3
 #class NewVisitorTest(unittest.TestCase):  #данные будут создаваться в реальной базе
-class NewVisitorTest(LiveServerTestCase): #данные будут создаваться в тестовой базе
+#class NewVisitorTest(LiveServerTestCase): #данные будут создаваться в тестовой базе
+
+#данные будут создаваться в тестовой базе с использованием тестовых файлов
+class NewVisitorTest(StaticLiveServerTestCase):
     def setUp(self):
         self.browser = webdriver.Firefox()
 
